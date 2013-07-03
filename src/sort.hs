@@ -1,6 +1,25 @@
 module KNN.Sort
-( quickselect
+( modal
+, quickselect
 , quicksort' ) where
+
+import qualified Data.Map as Map
+
+modal :: Ord a => [a] -> a
+modal ls = fst $ maxValue $ count ls
+
+count :: Ord a => [a] -> Map.Map a Int
+count ls = foldl addOrInsert Map.empty ls
+	where addOrInsert m k = case Map.lookup k m of
+							Nothing -> Map.insert k 1 m
+							Just _ 	-> Map.update (\x -> Just (x + 1)) k m
+
+maxValue :: Eq a => Map.Map a Int -> (a, Int)
+maxValue mp = Map.foldlWithKey hasMaxVal (head $ Map.assocs mp) mp
+	where hasMaxVal p k v
+		| v > snd p = (k,v)
+		| otherwise	= p
+
 
 quickselect :: Ord a => Int -> [a] -> [a]
 quickselect n ls
@@ -18,7 +37,7 @@ quicksort' n ls = qiter (ls!!n) ls [] [] []
 	where
 		qiter _ [] lt eq gt 	= (lt, eq, gt)
 		qiter y (x:xs) lt eq gt = case compare x y of
-								EQ -> qiter y xs lt (x:eq) gt
-								LT -> qiter y xs (x:lt) eq gt
-								GT -> qiter y xs lt eq (x:gt)
+									EQ -> qiter y xs lt (x:eq) gt
+									LT -> qiter y xs (x:lt) eq gt
+									GT -> qiter y xs lt eq (x:gt)
 

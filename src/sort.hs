@@ -6,10 +6,10 @@ module KNN.Sort
 import qualified Data.Map as Map
 
 modal :: Ord a => [a] -> a
-modal ls = fst $ maxValue $ count ls
+modal = fst . maxValue . count
 
 count :: Ord a => [a] -> Map.Map a Int
-count ls = foldl addOrInsert Map.empty ls
+count = foldl addOrInsert Map.empty
 	where addOrInsert m k = case Map.lookup k m of
 							Nothing -> Map.insert k 1 m
 							Just _ 	-> Map.update (\x -> Just (x + 1)) k m

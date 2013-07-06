@@ -31,4 +31,4 @@ main = do
 	hClose uHandle
 
 knn :: (Ord a, Floating a) => Int -> [Flower a] -> Flower a -> Measured a
-knn k c u = modal $ take k $ quickselect k $ calcDists c u
+knn k c = modal . take k . quickselect k . calcDists c

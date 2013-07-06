@@ -5,7 +5,7 @@ all: $(SOURCES)
 	mv src/main .
 
 run: $(SOURCES)
-	runhaskell $^
+	./main
 
 clean:
 	rm src/*.hi src/*.o

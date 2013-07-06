@@ -12,8 +12,20 @@ main = do
 	let cl = map parseLn $ lines classified
 	let ul = map parseLn $ lines unclassified
 
-	print $ head ul
-	print $ knn 5 cl $ head ul
+	let real = map label ul
+	let calc = map (tag . (\x -> knn 5 cl x)) ul
+
+	putStrLn "\nUnclassified - real labels:\n"
+	print real
+	putStrLn "\nPost-KNN - calculated labels:\n"
+	print calc
+
+	let score = foldl (\x y -> if y then x + (1::Int) else x) 0 [x == y | (x, y) <- zip real calc]
+	let total = length real
+	putStrLn "\nScore / total:"
+	putStr $ show score
+	putStr " / "
+	putStrLn $ show total
 
 	hClose cHandle
 	hClose uHandle

@@ -1,11 +1,12 @@
-SOURCES = src/main.hs src/dists.hs src/sort.hs
+SOURCES = src/main.hs src/KNN/Dist.hs src/KNN/Sort.hs
 
 all: $(SOURCES)
 	ghc --make -Wall $^
-	mv src/main .
 
 run: $(SOURCES)
-	./main
+	cd src; runhaskell main.hs
 
 clean:
+	rm src/main
 	rm src/*.hi src/*.o
+	rm src/KNN/*.hi src/KNN/*.o

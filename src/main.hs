@@ -4,8 +4,8 @@ import KNN.Sort
 
 main :: IO ()
 main = do
-	cHandle <- openFile "data/classified.csv" ReadMode
-	uHandle <- openFile "data/unclassified.csv" ReadMode
+	cHandle <- openFile "../data/classified.csv" ReadMode
+	uHandle <- openFile "../data/unclassified.csv" ReadMode
 	cl <- fmap (map parseLn . lines) $ hGetContents cHandle
 	ul <- fmap (map parseLn . lines) $ hGetContents uHandle
 

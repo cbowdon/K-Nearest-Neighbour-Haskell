@@ -6,11 +6,8 @@ main :: IO ()
 main = do
 	cHandle <- openFile "data/classified.csv" ReadMode
 	uHandle <- openFile "data/unclassified.csv" ReadMode
-	classified <- hGetContents cHandle
-	unclassified <- hGetContents uHandle
-
-	let cl = map parseLn $ lines classified
-	let ul = map parseLn $ lines unclassified
+	cl <- fmap (map parseLn . lines) $ hGetContents cHandle
+	ul <- fmap (map parseLn . lines) $ hGetContents uHandle
 
 	let real = map label ul
 	let calc = map (tag . (\x -> knn 5 cl x)) ul

@@ -9,8 +9,8 @@ main = do
 	cl <- fmap (map parseLn . lines) $ hGetContents cHandle
 	ul <- fmap (map parseLn . lines) $ hGetContents uHandle
 
-	let real = map label ul
-	let calc = map (tag . (\x -> knn 5 cl x)) ul
+	let real = map getLabel ul
+	let calc = map (getTag . (\x -> knn 5 cl x)) ul
 
 	putStrLn "\nUnclassified - real labels:\n"
 	print real

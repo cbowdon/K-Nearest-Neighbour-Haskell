@@ -9,23 +9,25 @@ module KNN.Dist
 
 import qualified Text.Regex as Rx
 
+type Label = String
+
 data Flower a = Flower { 
-	label 	:: String, 
+	label 	:: Label, 
 	dims 	:: [a] 
 } deriving (Eq, Show)
 
-makeFlower :: String -> [a] -> Flower a
+makeFlower :: Label -> [a] -> Flower a
 makeFlower l d = Flower { label = l, dims = d }
 
 data Measured a = Measured {
-	tag 	:: String,
+	tag 	:: Label,
 	dist	:: a
 } deriving (Eq, Show)
 
 instance (Ord a) => Ord (Measured a) where
 	compare x y = compare (dist x) (dist y)
 
-makeMeasured :: String -> a -> Measured a
+makeMeasured :: Label -> a -> Measured a
 makeMeasured t d = Measured { tag = t, dist = d }
 
 parseLn :: String -> Flower Double

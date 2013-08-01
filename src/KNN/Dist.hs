@@ -19,7 +19,7 @@ data Measured a = Measured {
 	getDist	:: a
 } deriving (Eq, Show)
 
-instance (Ord a) => Ord (Measured a) where
+instance Ord a => Ord (Measured a) where
 	compare x y = compare (getDist x) (getDist y)
 
 parseLn :: String -> Flower Double

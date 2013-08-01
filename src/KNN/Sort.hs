@@ -24,10 +24,10 @@ maxValue mp = Map.foldlWithKey hasMaxVal (head $ Map.assocs mp) mp
 quickselect :: Ord a => Int -> [a] -> [a]
 quickselect n ls
 	| n == n' 	= lss ++ eq ++ gtr
-	| n < n' 	= (quickselect n lss) ++ eq ++ gtr
+	| n < n' 	= quickselect n lss ++ eq ++ gtr
 	| n < n''	= lss ++ eq ++ gtr
-	| otherwise	= lss ++ (quickselect (n - n') (eq ++ gtr))
-		where 
+	| otherwise	= lss ++ quickselect (n - n') (eq ++ gtr)
+		where
 			(lss, eq, gtr) = quicksort' n ls
 			n' = length lss
 			n'' = n' + length eq

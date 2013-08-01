@@ -10,7 +10,7 @@ main = do
 	ul <- fmap (map parseLn . lines) $ hGetContents uHandle
 
 	let real = map getLabel ul
-	let calc = map (getTag . (\x -> knn 5 cl x)) ul
+	let calc = map (getTag . knn 5 cl) ul
 
 	putStrLn "\nUnclassified - real labels:\n"
 	print real
@@ -22,7 +22,7 @@ main = do
 	putStrLn "\nScore / total:"
 	putStr $ show score
 	putStr " / "
-	putStrLn $ show total
+	print total
 
 	hClose cHandle
 	hClose uHandle
